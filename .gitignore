@@ -218,3 +218,5 @@ docs/dist/
 
 # Coverage reports
 coverage.html
+
+config.json

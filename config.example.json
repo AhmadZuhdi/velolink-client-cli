@@ -3,7 +3,7 @@
     "autoConnect": true,
     "baudRate": 9600,
     "timeout": 5000,
-    "preferredPorts": ["COM", "tty.HC-05", "/dev/rfcomm"]
+    "preferredPorts": ["COM7", "tty.HC-05", "/dev/rfcomm"]
   },
   "keySimulation": {
     "enabled": true,

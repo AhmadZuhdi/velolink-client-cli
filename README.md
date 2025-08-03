@@ -4,9 +4,12 @@ A Node.js desktop application that connects to Arduino via Bluetooth (HC-05) and
 
 ## 🚀 Features
 
+- **🚀 Quick Start**: One-click connection to your last device and settings
 - **Bluetooth Communication**: Connect to Arduino HC-05 module automatically
+- **🎮 Game Input Support**: Enhanced compatibility with games using robotjs
 - **Key Simulation**: Simulate keyboard inputs, key combinations, and text typing
 - **Scenario Handling**: Process Arduino data and trigger appropriate keyboard actions
+- **⚙️ Configuration Management**: Automatic settings persistence and live reloading
 - **Real-time Monitoring**: Live connection status and data logging
 - **Extensible Architecture**: Easy to add new scenarios and key mappings
 
@@ -27,7 +30,13 @@ A Node.js desktop application that connects to Arduino via Bluetooth (HC-05) and
 
 ## 🎮 Usage
 
-### Start the Application
+### Quick Start (Recommended)
+After your first connection, use the **🚀 Quick Start** option for instant setup:
+1. Run `npm start`
+2. Select "🚀 Quick Start (your-port + game-mode)"
+3. Start sending Arduino commands!
+
+### Manual Setup
 ```bash
 # Development mode (with auto-reload)
 npm run dev
@@ -35,6 +44,12 @@ npm run dev
 # Production mode
 npm start
 ```
+
+Then follow the interactive menu to:
+1. Connect to your HC-05 device
+2. Configure your preferred game mode
+3. Enable data processing
+4. Start controlling!
 
 ### Arduino Setup
 Your Arduino should send string commands via HC-05. Example Arduino code:

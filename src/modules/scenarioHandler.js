@@ -299,17 +299,10 @@ class ScenarioHandler {
     }
 
     async processDataInternal(data) {
-        if (this.isProcessing) {
-            // console.log('⏳ Already processing a scenario, skipping...');
-            // return;
-        }
-
         try {
             this.isProcessing = true;
             const cleanData = data.toString().trim().toUpperCase();
             
-            // console.log(`🔍 Processing data: "${cleanData}"`);
-
             // First check if current game mode has a specific scenario for this data
             if (this.currentGameMode !== 'default' && this.gameModes.has(this.currentGameMode)) {
                 const gameMode = this.gameModes.get(this.currentGameMode);
@@ -345,7 +338,6 @@ class ScenarioHandler {
 
     async executeGameModeAction(trigger, action) {
         try {
-            console.log(`🎮 [${this.currentGameMode.toUpperCase()}] Executing: ${trigger} -> ${action}`);
             
             if (typeof action === 'string') {
                 if (action.startsWith('handle')) {
