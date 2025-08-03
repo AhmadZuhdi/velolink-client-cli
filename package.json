@@ -1,0 +1,30 @@
+{
+  "name": "velolink-client-desktop",
+  "version": "1.0.0",
+  "description": "Desktop application for Arduino Bluetooth communication and key simulation",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-game-input": "node src/utils/gameTestExample.js"
+  },
+  "keywords": [
+    "arduino",
+    "bluetooth",
+    "hc-05",
+    "key-simulation",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@inquirer/prompts": "^7.8.0",
+    "node-key-sender": "^1.0.11",
+    "robotjs": "^0.6.0",
+    "serialport": "^13.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
