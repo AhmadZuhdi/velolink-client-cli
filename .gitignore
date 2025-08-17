@@ -220,3 +220,5 @@ docs/dist/
 coverage.html
 
 config.json
+
+velolink-session-*

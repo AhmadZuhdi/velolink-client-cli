@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 
 import { SerialPort } from 'serialport';
-import { select, confirm } from '@inquirer/prompts';
+import { select, confirm, number } from '@inquirer/prompts';
 import { ReadlineParser } from '@serialport/parser-readline';
 import {parseRpmData} from './handlers/rpm_to_send_keys.js';
 import {parseDefaultData} from './handlers/default.js';
+
+let diameter = 700; // Default diameter in mm
 
 /**
  * List all available serial ports
@@ -45,7 +47,7 @@ function setupPortHandlers(port, parser) {
     parser.on('data', (data) => {
         
         if (data.startsWith('RPM:')) {
-            parseRpmData(data);
+            parseRpmData(data, diameter);
             return; // Skip default handler for RPM data
         }
 
@@ -110,6 +112,20 @@ async function main() {
     console.log('===========================\n');
 
     try {
+
+        console.log('Input your diameter in mm (default: 700):');
+        diameter = await number({
+            message: 'Enter diameter:',
+            default: 700,
+            validate: (value) => {
+                const num = parseInt(value);
+                if (isNaN(num) || num <= 0) {
+                    return 'Please enter a valid positive number';
+                }
+                return true;
+            }
+        });
+
         // List available ports
         console.log('🔍 Scanning for available serial ports...');
         const ports = await listSerialPorts();
