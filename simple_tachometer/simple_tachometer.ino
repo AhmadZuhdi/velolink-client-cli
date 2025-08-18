@@ -4,6 +4,12 @@
 // --- Configuration ---
 const int IR_SENSOR_PIN = 2; // Digital pin 2 or 3 for external interrupts on Uno
 
+// button
+const int LEFT_BTN_PIN = 13;
+const int RIGHT_BTN_PIN = 12;
+bool leftButtonPressed = false; // Track if button was already pressed
+bool rightButtonPressed = false; // Track if button was already pressed
+
 // Set the number of pulses your sensor generates for ONE complete revolution.
 // If you put 4 reflective strips, set this to 4.
 const float PULSES_PER_REVOLUTION = 8.0; 
@@ -48,6 +54,9 @@ void setup() {
   // Attach interrupt to the IR sensor pin.
   attachInterrupt(digitalPinToInterrupt(IR_SENSOR_PIN), handlePulse, FALLING); 
 
+  pinMode(LEFT_BTN_PIN, INPUT);
+  pinMode(RIGHT_BTN_PIN, INPUT);
+
   // Initialize filter array with zeros
   for (int i = 0; i < FILTER_SIZE; i++) {
     rpmReadings[i] = 0.0;
@@ -56,6 +65,34 @@ void setup() {
 
 // --- Main Loop ---
 void loop() {
+  calculateRpm();
+  buttonDetection();
+}
+
+void buttonDetection() {
+  // Read the state of the button pin.
+  // It will be HIGH when the button is pressed and LOW when it's not.
+
+  // Check if the button is pressed (state is HIGH) and hasn't been pressed before.
+  if (digitalRead(LEFT_BTN_PIN) == HIGH && !leftButtonPressed) {
+    leftButtonPressed = true; // Mark as pressed to prevent future prints
+    // If the button is pressed for the first time, print a message.
+    Serial.println("INPUT:A");
+  } else if (digitalRead(LEFT_BTN_PIN) == LOW) {
+    leftButtonPressed = false; // Reset the pressed state when button is released
+  }
+
+  // Check if the right button is pressed (state is HIGH) and hasn't been pressed before.
+  if (digitalRead(RIGHT_BTN_PIN) == HIGH && !rightButtonPressed) {
+    rightButtonPressed = true; // Mark as pressed to prevent future prints
+    // If the button is pressed for the first time, print a message.
+    Serial.println("INPUT:D");
+  } else if (digitalRead(RIGHT_BTN_PIN) == LOW) {
+    rightButtonPressed = false; // Reset the pressed state when button is released
+  }
+}
+
+void calculateRpm() {
   static unsigned long lastMeasurementTime = 0;
   static unsigned long lastPulseCountSnapshot = 0; // To store pulseCount from previous interval
 

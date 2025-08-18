@@ -237,12 +237,15 @@ const sendKeysForRpm = (rpm) => {
     }
 
     if (rpm > 25) {
-        new Array(Math.round(rpm / 50))
-            .fill(null)
-            .forEach(() => {
-                // TODO: enable later 
-                robot.keyTap('w');
-            });
+        // TODO: Enable later
+        // new Array(Math.round(rpm / 50))
+        //     .fill(null)
+        //     .forEach(() => {
+        //         // TODO: enable later 
+        //         robot.keyTap('w');
+        //     });
+
+        robot.keyTap('w');
     }
 }
 

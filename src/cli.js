@@ -4,6 +4,7 @@ import { SerialPort } from 'serialport';
 import { select, confirm, number } from '@inquirer/prompts';
 import { ReadlineParser } from '@serialport/parser-readline';
 import {parseRpmData} from './handlers/rpm_to_send_keys.js';
+import {sendKeysForInput} from './handlers/input_to_send_keys.js';
 import {parseDefaultData} from './handlers/default.js';
 
 let diameter = 700; // Default diameter in mm
@@ -47,8 +48,13 @@ function setupPortHandlers(port, parser) {
     parser.on('data', (data) => {
         
         if (data.startsWith('RPM:')) {
-            parseRpmData(data, diameter);
+            parseRpmData(www, diameter);
             return; // Skip default handler for RPM data
+        }
+
+        if (data.startsWith('INPUT:')) {
+            sendKeysForInput(data);
+            return; // Skip default handler for INPUT data
         }
 
         parseDefaultData(data); // Default handler for unrecognized data
