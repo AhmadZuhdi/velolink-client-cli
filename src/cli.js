@@ -48,11 +48,17 @@ function setupPortHandlers(port, parser) {
     parser.on('data', (data) => {
         
         if (data.startsWith('RPM:')) {
-            parseRpmData(www, diameter);
+            parseRpmData(data, diameter);
             return; // Skip default handler for RPM data
         }
 
-        if (data.startsWith('INPUT:')) {
+        const inputMatches = [
+            'INPUT:',
+            'PRESS:',
+            'RELEASE:'
+        ]
+
+        if (inputMatches.some(prefix => data.startsWith(prefix))) {
             sendKeysForInput(data);
             return; // Skip default handler for INPUT data
         }

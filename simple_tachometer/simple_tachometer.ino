@@ -7,6 +7,8 @@ const int IR_SENSOR_PIN = 2; // Digital pin 2 or 3 for external interrupts on Un
 // button
 const int LEFT_BTN_PIN = 13;
 const int RIGHT_BTN_PIN = 12;
+bool LEFT_PRESSED = false;
+bool RIGHT_PRESSED = false;
 
 // Set the number of pulses your sensor generates for ONE complete revolution.
 // If you put 4 reflective strips, set this to 4.
@@ -67,7 +69,7 @@ void loop() {
 
   if (stop) {
     delay(100);
-    // return;  
+    return;  
   }
 
   calculateRpm();
@@ -78,16 +80,30 @@ bool buttonDetection() {
   // It will be HIGH when the button is pressed and LOW when it's not.
 
   // Check if the button is pressed (state is HIGH) and hasn't been pressed before.
-  if (digitalRead(LEFT_BTN_PIN) == HIGH) {
+  if (digitalRead(LEFT_BTN_PIN) == HIGH && !LEFT_PRESSED) {
     // If the button is pressed for the first time, print a message.
-    Serial.println("INPUT:A");
+    Serial.println("PRESS:A");
+    LEFT_PRESSED = true;
+    return true;
+  } else if (digitalRead(LEFT_BTN_PIN) == LOW && LEFT_PRESSED) {
+    Serial.println("RELEASE:A");
+    LEFT_PRESSED = false;
     return true;
   }
 
   // Check if the right button is pressed (state is HIGH) and hasn't been pressed before.
-  if (digitalRead(RIGHT_BTN_PIN) == HIGH) {
+  if (digitalRead(RIGHT_BTN_PIN) == HIGH && !RIGHT_PRESSED) {
     // If the button is pressed for the first time, print a message.
-    Serial.println("INPUT:D");
+    Serial.println("PRESS:D");
+    RIGHT_PRESSED = true;
+    return true;
+  } else if (digitalRead(RIGHT_BTN_PIN) == LOW && RIGHT_PRESSED) {
+    Serial.println("RELEASE:D");
+    RIGHT_PRESSED = false;
+    return true;
+  }
+
+  if (LEFT_PRESSED || RIGHT_PRESSED) {
     return true;
   }
 

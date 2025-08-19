@@ -156,10 +156,17 @@ class SpeedDistanceTracker {
             const report = this.generateSessionReport();
             const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
             const filename = `velolink-session-${timestamp}.json`;
-            const filepath = path.join(process.cwd(), filename);
+            
+            // Create sessions directory if it doesn't exist
+            const sessionsDir = path.join(process.cwd(), 'sessions');
+            if (!fs.existsSync(sessionsDir)) {
+                fs.mkdirSync(sessionsDir, { recursive: true });
+            }
+            
+            const filepath = path.join(sessionsDir, filename);
             
             fs.writeFileSync(filepath, JSON.stringify(report, null, 2));
-            console.log(`\n📊 Session report saved to: ${filename}`);
+            console.log(`\n📊 Session report saved to: sessions/${filename}`);
             console.log(`📈 Max Speed: ${report.speedMetrics.maxSpeed}`);
             console.log(`📈 Avg Speed: ${report.speedMetrics.avgSpeed}`);
             console.log(`📏 Total Distance: ${report.distanceMetrics.totalDistanceKm}`);
