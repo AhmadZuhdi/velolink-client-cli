@@ -76,9 +76,6 @@ void loop() {
 }
 
 bool buttonDetection() {
-  // Read the state of the button pin.
-  // It will be HIGH when the button is pressed and LOW when it's not.
-
   // Check if the button is pressed (state is HIGH) and hasn't been pressed before.
   if (digitalRead(LEFT_BTN_PIN) == HIGH && !LEFT_PRESSED) {
     // If the button is pressed for the first time, print a message.

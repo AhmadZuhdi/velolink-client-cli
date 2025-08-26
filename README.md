@@ -2,6 +2,8 @@
 
 A Node.js desktop application that connects to Arduino via Bluetooth (HC-05) and simulates keyboard inputs based on received data scenarios.
 
+[Slide](https://docs.google.com/presentation/d/13bagFwFlL0bvGSUdHy0kvkBelcNyk7GnlKUbC5JSFoM/edit?usp=sharing)
+
 ## 🚀 Features
 
 - **🚀 Quick Start**: One-click connection to your last device and settings
